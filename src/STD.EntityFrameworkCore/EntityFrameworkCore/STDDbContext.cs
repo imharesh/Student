@@ -79,14 +79,18 @@ public class STDDbContext :
 
         /* Configure your own tables/entities inside here */
 
+        builder.Entity<Student>()
+         .HasIndex(p => p.Email)
+         .IsUnique();
         builder.Entity<Student>(b =>
         {
-            b.ToTable(STDConsts.DbTablePrefix + "Students", STDConsts.DbSchema);
-            b.ConfigureByConvention();
-            b.Property(x => x.Name).IsRequired().HasMaxLength(128);
+            b.ToTable(STDConsts.DbTablePrefix + "Students",
+            STDConsts.DbSchema);
+            b.ConfigureByConvention(); //auto configure for the base class props
+            b.Property(x => x.Name).IsRequired().HasMaxLength(128);
 
-            //auto configure for the base class props
-            //...
+
+
         });
     }
 }
